@@ -1,0 +1,6 @@
+H:\个人项目\MyBlogs\WebApplication1\bin\WebApplication1.dll.config
+H:\个人项目\MyBlogs\WebApplication1\bin\WebApplication1.dll
+H:\个人项目\MyBlogs\WebApplication1\bin\WebApplication1.pdb
+H:\个人项目\MyBlogs\WebApplication1\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+H:\个人项目\MyBlogs\WebApplication1\obj\Debug\WebApplication1.dll
+H:\个人项目\MyBlogs\WebApplication1\obj\Debug\WebApplication1.pdb
