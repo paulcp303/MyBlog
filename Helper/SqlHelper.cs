@@ -11,7 +11,7 @@ namespace Helper
     public class SqlHelper
     {
         /// <summary>
-        /// 数据库连接ss
+        /// 数据库连接
         /// </summary>
         /// <returns>默认的数据库连接[Default]</returns>
         public static SqlConnection CreateConn()
