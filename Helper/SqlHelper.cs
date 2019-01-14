@@ -16,7 +16,7 @@ namespace Helper
         /// <returns>默认的数据库连接[Default]</returns>
         public static SqlConnection CreateConn()
         {
-            string strConn = System.Configuration.ConfigurationManager.ConnectionStrings["Default"].ToString();
+            string strConn = System.Configuration.ConfigurationManager.ConnectionStrings["Default"].ToString();//
             SqlConnection conn = new SqlConnection(strConn);
             return conn;
         }
