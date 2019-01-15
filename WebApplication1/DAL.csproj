@@ -68,7 +68,14 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ecomments.cs" />
+    <Compile Include="Essays.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scomments.cs" />
+    <Compile Include="Shorts.cs" />
+    <Compile Include="Visits.cs" />
+    <Compile Include="Works.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
