@@ -40,3 +40,7 @@ H:\个人项目\MyBlogs\WebAPI\bin\zh-Hans\System.Web.WebPages.Razor.resources.d
 H:\个人项目\MyBlogs\WebAPI\obj\Debug\WebAPI.csprojResolveAssemblyReference.cache
 H:\个人项目\MyBlogs\WebAPI\obj\Debug\WebAPI.dll
 H:\个人项目\MyBlogs\WebAPI\obj\Debug\WebAPI.pdb
+H:\个人项目\MyBlogs\WebAPI\bin\Helper.dll
+H:\个人项目\MyBlogs\WebAPI\bin\WebApplication1.dll
+H:\个人项目\MyBlogs\WebAPI\bin\Helper.pdb
+H:\个人项目\MyBlogs\WebAPI\bin\WebApplication1.pdb

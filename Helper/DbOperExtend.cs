@@ -378,6 +378,9 @@ namespace Helper
         }
 
 
+        public 
+
+
         public static void DataRowToT<T>(T entity,DataTable dt,DataRow dr)
         {
             Type t = typeof(T);

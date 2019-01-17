@@ -3,3 +3,4 @@ H:\个人项目\MyBlogs\Helper\bin\Helper.dll
 H:\个人项目\MyBlogs\Helper\bin\Helper.pdb
 H:\个人项目\MyBlogs\Helper\obj\Debug\Helper.dll
 H:\个人项目\MyBlogs\Helper\obj\Debug\Helper.pdb
+H:\个人项目\MyBlogs\Helper\bin\Newtonsoft.Json.dll

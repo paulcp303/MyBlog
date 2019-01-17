@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Web;
 using System.Web.Http;
 
 namespace WebAPI.Controllers
@@ -72,7 +73,27 @@ namespace WebAPI.Controllers
 
         public HttpResponseMessage GetVisitsPage()
         {
+            ReturnHelper rh = new ReturnHelper(200, null, 0, "");
+            string limit = HttpContext.Current.Request["limit"];
+            string page = HttpContext.Current.Request["page"];
+            try
+            {
+                if (string.IsNullOrEmpty(limit) || string.IsNullOrEmpty(page))
+                {
+                    rh.msg = "缺少分页参数";
+                    rh.code = 300;
+                }
+                else
+                {
 
+                }
+            }
+            catch (Exception e)
+            {
+                return ReturnJson(JsonConvert.SerializeObject(rh));
+            }
+
+            return ReturnJson(JsonConvert.SerializeObject(rh));
         }
     }
 }
