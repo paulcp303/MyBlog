@@ -3,6 +3,7 @@ using Helper;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -71,9 +72,14 @@ namespace WebAPI.Controllers
             return ReturnJson(JsonConvert.SerializeObject(rh));
         }
 
+        /// <summary>
+        /// 获取访问记录
+        /// </summary>
+        /// <returns></returns>
         public HttpResponseMessage GetVisitsPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
+            string key = HttpContext.Current.Request["key"];
             string limit = HttpContext.Current.Request["limit"];
             string page = HttpContext.Current.Request["page"];
             try
@@ -85,14 +91,28 @@ namespace WebAPI.Controllers
                 }
                 else
                 {
-
+                    Visits obj = new Visits();
+                    string strWhere = " 1=1";
+                    if (!string.IsNullOrEmpty(key))
+                    {
+                        strWhere += string.Format(" and (Ip like '%{0}%' or Address like '%{0}%' or Browser like '%{0}%')",key);
+                    }
+                    int begin = (Convert.ToInt32(page) - 1) * Convert.ToInt32(limit);
+                    int end = Convert.ToInt32(page) * Convert.ToInt32(limit);
+                    DataTable dt=obj.GetPage("*", "Visittime desc", strWhere, begin, end);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rh.totals = SqlHelper.Count(string.Format("select * from Visits where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.data = dt;
+                        rh.msg = "获取成功";
+                    }
                 }
             }
             catch (Exception e)
             {
-                return ReturnJson(JsonConvert.SerializeObject(rh));
+                rh.code = 500;
+                rh.msg = "处理错误";
             }
-
             return ReturnJson(JsonConvert.SerializeObject(rh));
         }
     }

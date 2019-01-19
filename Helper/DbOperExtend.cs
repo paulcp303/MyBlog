@@ -377,8 +377,30 @@ namespace Helper
             return DataTableToList<T>(dt);
         }
 
-
-        public 
+        /// <summary>
+        /// 获取分页数据
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity">实体</param>
+        /// <param name="selectfields">查询列（多列用,隔开）</param>
+        /// <param name="orderfield">排序队列</param>
+        /// <param name="strWhere">条件</param>
+        /// <param name="beginindex">起始行数</param>
+        /// <param name="endindex">结束行数</param>
+        /// <returns></returns>
+        public static DataTable GetPage<T>(this T entity, string selectfields, string orderfield, string strWhere, int beginindex, int endindex)
+        {
+            DataTable dt = null;
+            Type t = typeof(T);
+            if(string.IsNullOrEmpty(strWhere)){
+                strWhere = " 1=1";
+            }
+            string sql = string.Format(" select * from "+
+                                       " ( select row_number() over (order by {0}) rowid,{1} from {2} where {3}) d "+
+                                       " where rowid between {4} and {5}", orderfield, selectfields, t.Name, strWhere,beginindex, endindex);
+            dt = SqlHelper.DataSet(sql, SqlHelper.CreateConn());
+            return dt;
+        }
 
 
         public static void DataRowToT<T>(T entity,DataTable dt,DataRow dr)
