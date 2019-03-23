@@ -31,6 +31,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddVisitRecord(Visits obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -76,6 +77,7 @@ namespace WebAPI.Controllers
         /// 获取访问记录
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetVisitsPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");

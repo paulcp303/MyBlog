@@ -27,9 +27,10 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 获取文章列表
+        /// 获取留言列表
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetMessagesPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
                     DataTable dt = obj.GetPage("*", "Datetime desc", strWhere, begin, end);
                     if (dt.Rows.Count > 0)
                     {
-                        rh.totals = SqlHelper.Count(string.Format("select * from Messages where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.totals = SqlHelper.Count(string.Format("select count(*) from Messages where {0}", strWhere), SqlHelper.CreateConn());
                         rh.data = dt;
                         rh.msg = "获取成功";
                     }
@@ -71,10 +72,11 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 添加文章
+          /// 添加留言
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddMessage(Messages obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -107,10 +109,11 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 更新文章内容
+          /// 更新留言内容
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage UpdateMessage(Messages obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -141,10 +144,11 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
-        /// 删除文章
+          /// 删除留言
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage DeleteMessage(Messages obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");

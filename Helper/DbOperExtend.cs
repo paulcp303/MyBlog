@@ -397,7 +397,7 @@ namespace Helper
             }
             string sql = string.Format(" select * from "+
                                        " ( select row_number() over (order by {0}) rowid,{1} from {2} where {3}) d "+
-                                       " where rowid between {4} and {5}", orderfield, selectfields, t.Name, strWhere,beginindex, endindex);
+                                       " where rowid>{4} and rowid<={5}", orderfield, selectfields, t.Name, strWhere, beginindex, endindex);
             dt = SqlHelper.DataSet(sql, SqlHelper.CreateConn());
             return dt;
         }

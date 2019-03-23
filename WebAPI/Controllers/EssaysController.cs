@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
         /// 获取文章列表
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetEssaysPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
                     DataTable dt = obj.GetPage("*", "Report_Time desc", strWhere, begin, end);
                     if (dt.Rows.Count > 0)
                     {
-                        rh.totals = SqlHelper.Count(string.Format("select * from Essays where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.totals = SqlHelper.Count(string.Format("select count(*) from Essays where {0}", strWhere), SqlHelper.CreateConn());
                         rh.data = dt;
                         rh.msg = "获取成功";
                     }
@@ -70,11 +71,50 @@ namespace WebAPI.Controllers
             return ReturnJson(JsonConvert.SerializeObject(rh));
         }
 
+          /// <summary>
+          /// 获取文章item
+          /// </summary>
+          /// <returns></returns>
+          [HttpPost]
+          public HttpResponseMessage GetEssayItem()
+          {
+              ReturnHelper rh = new ReturnHelper(200, null, 0, "");
+              string essayid = HttpContext.Current.Request["essayid"];
+              try
+              {
+                  if (string.IsNullOrEmpty(essayid))
+                  {
+                      rh.msg = "缺少文章id";
+                      rh.code = 300;
+                  }
+                  else
+                  {
+                      Essays obj = new Essays();
+                      string strWhere = string.Format(" Essayid='{0}'",essayid);
+                      DataTable dt = obj.GetPage("*", "Report_Time desc", strWhere, 0, 1);
+                      if (dt.Rows.Count > 0)
+                      {
+                          rh.totals = 1;
+                          rh.data = dt;
+                          rh.msg = "获取成功";
+                      }
+                  }
+              }
+              catch (Exception e)
+              {
+                  rh.code = 500;
+                  rh.msg = "处理错误";
+              }
+
+              return ReturnJson(JsonConvert.SerializeObject(rh));
+          }
+
         /// <summary>
         /// 添加文章
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddEssay(Essays obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -111,6 +151,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage UpdateEssay(Essays obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -146,6 +187,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage DeleteEssay(Essays obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -178,6 +220,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage ViewEssay(Essays obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");

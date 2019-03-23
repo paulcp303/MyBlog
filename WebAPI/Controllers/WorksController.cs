@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
         /// 获取文章列表
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetWorksPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
                     DataTable dt = obj.GetPage("*", "Report_Time desc", strWhere, begin, end);
                     if (dt.Rows.Count > 0)
                     {
-                        rh.totals = SqlHelper.Count(string.Format("select * from Works where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.totals = SqlHelper.Count(string.Format("select count(*) from Works where {0}", strWhere), SqlHelper.CreateConn());
                         rh.data = dt;
                         rh.msg = "获取成功";
                     }
@@ -75,6 +76,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddWork(Works obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -109,6 +111,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage UpdateWork(Works obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -142,6 +145,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage DeleteWork(Works obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");

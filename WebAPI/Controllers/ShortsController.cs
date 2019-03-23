@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
         /// 获取微语列表
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetShortsPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -56,7 +57,7 @@ namespace WebAPI.Controllers
                     DataTable dt = obj.GetPage("*", "Report_Time desc", strWhere, begin, end);
                     if (dt.Rows.Count > 0)
                     {
-                        rh.totals = SqlHelper.Count(string.Format("select * from Shorts where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.totals = SqlHelper.Count(string.Format("select count(*) from Shorts where {0}", strWhere), SqlHelper.CreateConn());
                         rh.data = dt;
                         rh.msg = "获取成功";
                     }
@@ -71,10 +72,50 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// 获取微语item
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public HttpResponseMessage GetShortItem()
+        {
+            ReturnHelper rh = new ReturnHelper(200, null, 0, "");
+            string shortid = HttpContext.Current.Request["shortid"];
+            try
+            {
+                if (string.IsNullOrEmpty(shortid))
+                {
+                    rh.msg = "缺少微语id";
+                    rh.code = 300;
+                }
+                else
+                {
+                    Shorts obj = new Shorts();
+                    string strWhere = string.Format(" Shortid='{0}' ",shortid);
+                    DataTable dt = obj.GetPage("*", "Report_Time desc", strWhere, 0, 1);
+                    if (dt.Rows.Count > 0)
+                    {
+                        rh.totals = 1;
+                        rh.data = dt;
+                        rh.msg = "获取成功";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                rh.code = 500;
+                rh.msg = "处理错误";
+            }
+
+            return ReturnJson(JsonConvert.SerializeObject(rh));
+        }
+
+
+        /// <summary>
         /// 发表微语
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddShort(Shorts obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -111,6 +152,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage UpdateShort(Shorts obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -146,6 +188,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage DeleteShort(Shorts obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -178,6 +221,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage ViewShort(Shorts obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -220,6 +264,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage LikeShort(Shorts obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");

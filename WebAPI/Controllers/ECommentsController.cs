@@ -30,6 +30,7 @@ namespace WebAPI.Controllers
         /// 获取评论列表
         /// </summary>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage GetEcommentsPage()
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
@@ -52,7 +53,7 @@ namespace WebAPI.Controllers
                     DataTable dt = obj.GetPage("*", "Time desc", strWhere, begin, end);
                     if (dt.Rows.Count > 0)
                     {
-                        rh.totals = SqlHelper.Count(string.Format("select * from Ecomments where {0}", strWhere), SqlHelper.CreateConn());
+                        rh.totals = SqlHelper.Count(string.Format("select count(*) from Ecomments where {0}", strWhere), SqlHelper.CreateConn());
                         rh.data = dt;
                         rh.msg = "获取成功";
                     }
@@ -71,6 +72,7 @@ namespace WebAPI.Controllers
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
+          [HttpPost]
         public HttpResponseMessage AddEcomment(Ecomments obj)
         {
             ReturnHelper rh = new ReturnHelper(200, null, 0, "");
